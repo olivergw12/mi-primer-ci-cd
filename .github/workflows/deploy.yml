@@ -2,11 +2,14 @@ name: Despliegue en GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]  # Se activa al hacer push a main
+    branches: [ "main" ]  # Se ejecuta al hacer push a la rama main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:  # ¡Esto es clave para evitar el error 403!
+      contents: write  # Permiso para escribir en el repo
+
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
@@ -14,5 +17,5 @@ jobs:
       - name: Desplegar en GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # Carpeta a desplegar (la raíz)
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Token automático de GitHub
+          publish_dir: ./  # Carpeta a publicar (la raíz del proyecto)
