@@ -1,0 +1,18 @@
+name: Despliegue en GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]  # Se activa al hacer push a main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Desplegar en GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./  # Carpeta a desplegar (la raíz)
